@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1E4B41">
+<title>ExpensePilot</title>
+<meta name="description" content="Track your income, expenses and savings — offline-first PWA.">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" href="css/reports.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" id="dark-mode-sheet" href="css/dark.css" disabled>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-left">
+      <span class="logo-dot"></span>
+      <h1 class="app-title">ExpensePilot</h1>
+    </div>
+    <div class="header-right">
+      <button id="darkToggleBtn" class="icon-btn" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN APP CONTAINER ===== -->
+  <main id="app">
+
+    <!-- ---------- DASHBOARD PAGE ---------- -->
+    <section id="page-dashboard" class="page active">
+      <div class="balance-card">
+        <p class="balance-label">Total balance</p>
+        <h2 class="balance-amount" id="totalBalance">₹0</h2>
+        <div class="balance-sub">
+          <div class="sub-item income">
+            <span class="sub-icon">↑</span>
+            <div>
+              <p class="sub-label">Income</p>
+              <p class="sub-value" id="totalIncome">₹0</p>
+            </div>
+          </div>
+          <div class="sub-item expense">
+            <span class="sub-icon">↓</span>
+            <div>
+              <p class="sub-label">Expense</p>
+              <p class="sub-value" id="totalExpense">₹0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>This month</h3>
+        <select id="monthPicker"></select>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <canvas id="categoryChart"></canvas>
+        </div>
+        <div class="analytics-card">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="insight-box" id="insightBox">
+        <p class="insight-title">💡 Insight</p>
+        <p class="insight-text" id="insightText">Add a few transactions to see personalized insights.</p>
+      </div>
+
+      <div class="section-heading">
+        <h3>Recent transactions</h3>
+        <button class="link-btn" data-nav="transactions-all">See all</button>
+      </div>
+      <div id="recentTransactions" class="transaction-list"></div>
+    </section>
+
+    <!-- ---------- ADD TRANSACTION PAGE ---------- -->
+    <section id="page-add" class="page">
+      <h2 class="page-title">Add transaction</h2>
+      <div class="type-toggle">
+        <button class="type-btn active" data-type="expense">Expense</button>
+        <button class="type-btn" data-type="income">Income</button>
+      </div>
+      <form id="transactionForm" class="form-card">
+        <label>Amount</label>
+        <input type="number" id="tx-amount" min="0" step="1" placeholder="0" required>
+
+        <label>Category</label>
+        <select id="tx-category"></select>
+
+        <label>Date</label>
+        <input type="date" id="tx-date" required>
+
+        <label>Note (optional)</label>
+        <input type="text" id="tx-note" placeholder="e.g. lunch with friends">
+
+        <button type="submit" class="primary-btn">Save transaction</button>
+      </form>
+    </section>
+
+    <!-- ---------- CALENDAR PAGE ---------- -->
+    <section id="page-calendar" class="page">
+      <h2 class="page-title">Calendar</h2>
+      <div class="calendar-nav">
+        <button id="calPrev" class="icon-btn">‹</button>
+        <span id="calLabel" class="calendar-label"></span>
+        <button id="calNext" class="icon-btn">›</button>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <div id="calendarDayDetail" class="calendar-day-detail"></div>
+    </section>
+
+    <!-- ---------- REPORTS PAGE ---------- -->
+    <section id="page-reports" class="page">
+      <h2 class="page-title">Reports</h2>
+      <div class="report-controls">
+        <select id="reportRange">
+          <option value="month">This month</option>
+          <option value="year">This year</option>
+          <option value="all">All time</option>
+        </select>
+        <div class="report-buttons">
+          <button id="exportCsv" class="secondary-btn">Export CSV</button>
+          <button id="exportPdf" class="secondary-btn">Export PDF</button>
+        </div>
+      </div>
+      <div class="report-card">
+        <canvas id="reportChart"></canvas>
+      </div>
+      <div id="reportTable" class="report-table"></div>
+    </section>
+
+    <!-- ---------- SETTINGS PAGE ---------- -->
+    <section id="page-settings" class="page">
+      <h2 class="page-title">Settings</h2>
+      <div class="settings-list">
+        <div class="settings-item">
+          <label for="currencySelect">Currency</label>
+          <select id="currencySelect">
+            <option value="₹">₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+          </select>
+        </div>
+        <div class="settings-item">
+          <label for="budgetSetting">Monthly budget</label>
+          <input type="number" id="budgetSetting" min="0" step="100" placeholder="e.g. 15000">
+        </div>
+        <div class="settings-item">
+          <label for="darkModeSetting">Dark mode</label>
+          <input type="checkbox" id="darkModeSetting">
+        </div>
+        <div class="settings-item">
+          <button id="clearDataBtn" class="danger-btn">Clear all data</button>
+        </div>
+      </div>
+      <p class="version-tag">ExpensePilot · Phase 1 &amp; 2 · v0.2.0</p>
+    </section>
+
+  </main>
+
+  <!-- ===== BOTTOM NAVIGATION ===== -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-nav="dashboard">
+      <span class="nav-icon">🏠</span><span>Home</span>
+    </button>
+    <button class="nav-btn" data-nav="calendar">
+      <span class="nav-icon">📅</span><span>Calendar</span>
+    </button>
+    <button class="nav-btn nav-add" data-nav="add">
+      <span class="nav-icon">＋</span>
+    </button>
+    <button class="nav-btn" data-nav="reports">
+      <span class="nav-icon">📊</span><span>Reports</span>
+    </button>
+    <button class="nav-btn" data-nav="settings">
+      <span class="nav-icon">⚙️</span><span>Settings</span>
+    </button>
+  </nav>
+
+  <script src="js/firebase.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/transactions.js" defer></script>
+  <script src="js/charts.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+  <script src="js/calendar.js" defer></script>
+  <script src="js/reports.js" defer></script>
+  <script src="js/settings.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

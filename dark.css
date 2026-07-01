@@ -1,0 +1,26 @@
+/* This stylesheet is enabled/disabled via JS (app.js -> toggleDarkMode).
+   It only overrides CSS variables — all component CSS above adapts automatically. */
+
+:root{
+  --paper:#151A17;
+  --surface:#1E2622;
+  --surface-2:#232B27;
+  --ink:#EDEFEA;
+  --ink-soft:#B7C0BA;
+  --ink-muted:#828C86;
+  --line:#333E38;
+  --teal:#4FA88F;
+  --teal-deep:#2F6F62;
+  --gold:#E0B93A;
+  --gold-deep:#C9A227;
+  --rust:#E1725A;
+}
+
+.insight-box{
+  background:#2A2618;
+}
+
+.google-btn{
+  background:#232B27;
+  color:var(--ink);
+}

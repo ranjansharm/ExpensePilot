@@ -1,0 +1,154 @@
+.balance-card{
+  background:linear-gradient(135deg, var(--teal-deep), var(--teal));
+  border-radius:var(--radius-lg);
+  padding:22px 20px;
+  color:#fff;
+}
+.balance-label{
+  font-size:12px;
+  opacity:0.8;
+  margin:0 0 4px;
+}
+.balance-amount{
+  font-size:32px;
+  font-weight:700;
+  margin:0 0 16px;
+}
+.balance-sub{
+  display:flex;
+  gap:16px;
+}
+.sub-item{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,0.12);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+}
+.sub-icon{
+  font-size:16px;
+  width:24px;height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.2);
+}
+.sub-label{
+  font-size:11px;
+  opacity:0.8;
+  margin:0;
+}
+.sub-value{
+  font-size:14px;
+  font-weight:700;
+  margin:0;
+}
+
+#monthPicker{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:6px 10px;
+  background:var(--surface);
+  font-size:13px;
+  color:var(--ink);
+}
+
+.analytics-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:16px;
+}
+.analytics-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:12px;
+  height:160px;
+  position:relative;
+}
+
+.insight-box{
+  background:#F4EFDD;
+  border-left:3px solid var(--gold-deep);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:12px 14px;
+  margin-bottom:8px;
+}
+.insight-title{
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold-deep);
+  margin:0 0 4px;
+}
+.insight-text{
+  font-size:13px;
+  color:var(--ink);
+  margin:0;
+  line-height:1.5;
+}
+
+.transaction-list{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.transaction-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+}
+.transaction-item:last-child{border-bottom:none;}
+.tx-icon{
+  width:38px;height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  background:var(--paper);
+  flex-shrink:0;
+}
+.tx-info{flex:1;min-width:0;}
+.tx-category{
+  font-size:13px;
+  font-weight:600;
+  margin:0;
+}
+.tx-meta{
+  font-size:11px;
+  color:var(--ink-muted);
+  margin:2px 0 0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.tx-amount{
+  font-size:14px;
+  font-weight:700;
+  white-space:nowrap;
+}
+.tx-amount.income{color:var(--teal-deep);}
+.tx-amount.expense{color:var(--rust);}
+.tx-delete{
+  background:none;
+  border:none;
+  color:var(--ink-muted);
+  font-size:14px;
+  padding:4px;
+}
+.empty-state{
+  text-align:center;
+  padding:28px 10px;
+  color:var(--ink-muted);
+  font-size:13px;
+}

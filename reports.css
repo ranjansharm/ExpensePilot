@@ -1,0 +1,59 @@
+.report-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+#reportRange{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:9px 12px;
+  background:var(--surface);
+  font-size:13px;
+}
+.report-buttons{
+  display:flex;
+  gap:8px;
+}
+.report-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:16px;
+  height:220px;
+  margin-bottom:16px;
+}
+.report-table{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.report-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 14px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.report-row:last-child{border-bottom:none;}
+.report-row .r-cat{font-weight:600;}
+.report-row .r-amt{color:var(--ink-soft);}
+
+/* Printable PDF layout (used only inside the generated report window) */
+.pdf-sheet{
+  font-family:'Poppins',sans-serif;
+  padding:32px;
+  color:#1F2A24;
+}
+.pdf-sheet h1{font-size:20px;margin-bottom:2px;}
+.pdf-sheet .pdf-sub{font-size:12px;color:#5B6660;margin-bottom:20px;}
+.pdf-sheet table{width:100%;border-collapse:collapse;font-size:12px;}
+.pdf-sheet th,.pdf-sheet td{
+  text-align:left;
+  padding:8px 10px;
+  border-bottom:1px solid #E4DCC8;
+}
+.pdf-sheet th{color:#5B6660;font-weight:600;}
